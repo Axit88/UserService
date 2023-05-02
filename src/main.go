@@ -1,31 +1,18 @@
 package main
 
 import (
-	"fmt"
-
-	core "github.com/Axit88/UserService/src/domain/userService/core"
-	"github.com/Axit88/UserService/src/domain/userService/core/model"
-	_ "github.com/go-sql-driver/mysql"
+	"github.com/Axit88/UserService/src/container"
+	worker "github.com/Axit88/UserService/src/worker"
 )
 
 func main() {
-	client := core.NewUserServiceFacade()
-	user := model.User{
-		Username: "Jay",
-		UserId:   "3",
-	}
-	err := client.AddUser(&user)
-
+	container, err := container.UserServiceContainer()
 	if err != nil {
-		fmt.Println(err)
-	} else {
-		fmt.Println("UserAdded Success")
+		panic(err)
 	}
 
-	res, err := client.GetUser("2")
+	err = container.Invoke(worker.StartWorker)
 	if err != nil {
-		fmt.Println(err)
-	} else {
-		fmt.Println(res.Username)
+		panic(err)
 	}
 }
