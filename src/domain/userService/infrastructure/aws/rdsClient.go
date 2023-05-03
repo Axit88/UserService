@@ -4,7 +4,7 @@ import (
 	"database/sql"
 	"fmt"
 
-	"github.com/Axit88/UserService/src/domain/userService/core/ports/outgoing"
+	outgoing "github.com/Axit88/UserService/src/domain/userService/core/ports/outgoing/outgoingAws"
 	_ "github.com/go-sql-driver/mysql"
 )
 

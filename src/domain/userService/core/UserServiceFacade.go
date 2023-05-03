@@ -1,58 +1,40 @@
 package infrastructure
 
 import (
-	"context"
-
-	pb "github.com/Axit88/UserGrpc/storage-proto"
 	"github.com/Axit88/UserService/src/domain/userService/core/model"
 	"github.com/Axit88/UserService/src/domain/userService/core/ports/incoming"
 	"github.com/Axit88/UserService/src/domain/userService/core/ports/outgoing"
+	"github.com/MindTickle/mt-go-logger/logger"
 )
 
 type UserServiceFacade struct {
-	grpc outgoing.GrpcClient
+	userServiceClient outgoing.UserServiceClient
+	logger            *logger.LoggerImpl
 }
 
-func NewUserServiceFacade(grpcCliet outgoing.GrpcClient) incoming.UserService {
+func NewUserServiceFacade(newUserServiceClient outgoing.UserServiceClient, l *logger.LoggerImpl) incoming.UserService {
 	return &UserServiceFacade{
-		grpc: grpcCliet,
+		userServiceClient: newUserServiceClient,
+		logger:            l,
 	}
 }
 
-func (facade *UserServiceFacade) AddUserClient(client pb.TestApiClient, input *model.User) error {
-	in := &pb.AddUserInput{
-		UserName: input.Username,
-		UserId:   input.UserId,
-	}
-	_, err := client.AddUser(context.Background(), in)
+func (facade *UserServiceFacade) AddUser(input *model.User) error {
+	err := facade.userServiceClient.AddUser(input)
 	return err
 }
 
-func (facade *UserServiceFacade) GetUserClient(client pb.TestApiClient, userId string) (*model.User, error) {
-	in := &pb.GetUserInput{
-		UserId: userId,
-	}
-	res, err := client.GetUser(context.Background(), in)
-	output := model.User{
-		UserId:   res.UserId,
-		Username: res.UserName,
-	}
-	return &output, err
+func (facade *UserServiceFacade) GetUser(userId string) (*model.User, error) {
+	res, err := facade.userServiceClient.GetUser(userId)
+	return res, err
 }
 
-func (facade *UserServiceFacade) UpdateUserClient(client pb.TestApiClient, userId string, userName string) error {
-	input := pb.UpdateUserInput{
-		UserId:   userId,
-		UserName: userName,
-	}
-	_, err := client.UpdateUser(context.Background(), &input)
+func (facade *UserServiceFacade) UpdateUser(userId string, userName string) error {
+	err := facade.userServiceClient.UpdateUser(userId, userName)
 	return err
 }
 
-func (facade *UserServiceFacade) DeleteUserClient(client pb.TestApiClient, userId string) error {
-	in := &pb.DeleteUserInput{
-		UserId: userId,
-	}
-	_, err := client.DeleteUser(context.Background(), in)
+func (facade *UserServiceFacade) DeleteUser(userId string) error {
+	err := facade.userServiceClient.DeleteUser(userId)
 	return err
 }

@@ -1,0 +1,31 @@
+configs:
+  prod:
+    level: "debug"
+    output_paths:
+      - "stdout"
+    appends:
+      - "reqId"
+      - "companyId"
+      - "orgId"
+      - "globalContextId"
+      - "authorizer"
+  dev:
+    level: "debug"
+    output_paths:
+      - "stdout"
+    appends:
+      - "reqId"
+      - "companyId"
+      - "orgId"
+      - "globalContextId"
+      - "authorizer"
+  test:
+    level: "debug"
+    output_paths:
+      - "stdout"
+    appends:
+      - "reqId"
+      - "companyId"
+      - "orgId"
+      - "globalContextId"
+      - "authorizer"

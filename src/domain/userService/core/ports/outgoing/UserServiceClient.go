@@ -1,10 +1,10 @@
-package incoming
+package outgoing
 
 import (
 	"github.com/Axit88/UserService/src/domain/userService/core/model"
 )
 
-type UserService interface {
+type UserServiceClient interface {
 	AddUser(input *model.User) error
 	GetUser(userId string) (*model.User, error)
 	DeleteUser(userId string) error

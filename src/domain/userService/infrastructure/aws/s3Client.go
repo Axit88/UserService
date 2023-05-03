@@ -4,7 +4,7 @@ import (
 	"bytes"
 	"fmt"
 
-	"github.com/Axit88/UserService/src/domain/userService/core/ports/outgoing"
+	outgoing "github.com/Axit88/UserService/src/domain/userService/core/ports/outgoing/outgoingAws"
 	"github.com/aws/aws-sdk-go/aws"
 	"github.com/aws/aws-sdk-go/aws/session"
 	"github.com/aws/aws-sdk-go/service/s3"

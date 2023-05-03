@@ -3,18 +3,18 @@ package application
 import (
 	"github.com/Axit88/UserService/src/domain/userService/core/model"
 	"github.com/Axit88/UserService/src/domain/userService/core/ports/incoming"
-	"github.com/Axit88/UserService/src/domain/userService/core/ports/outgoing"
+	"github.com/MindTickle/mt-go-logger/logger"
 )
 
 type UserServiceApplication struct {
 	facade incoming.UserService
-	grpc   outgoing.GrpcClient
+	Logger *logger.LoggerImpl
 }
 
-func NewUserServiceApplication(grpc outgoing.GrpcClient, facade incoming.UserService) *UserServiceApplication {
+func NewUserServiceApplication(facade incoming.UserService, l *logger.LoggerImpl) *UserServiceApplication {
 	res := new(UserServiceApplication)
-	res.grpc = grpc
 	res.facade = facade
+	res.Logger = l
 	return res
 }
 
@@ -23,17 +23,10 @@ func (worker *UserServiceApplication) AddUserApplication(userId string, userName
 		UserId:   userId,
 		Username: userName,
 	}
-	grpc_client, err := worker.grpc.CreateGrpcConnection()
-	if err != nil {
-		return err
-	}
-	return worker.facade.AddUserClient(grpc_client, &input)
+	return worker.facade.AddUser(&input)
 }
 
 func (worker *UserServiceApplication) GetUserApplication(userId string) (*model.User, error) {
-	grpc_client, err := worker.grpc.CreateGrpcConnection()
-	if err != nil {
-		return nil, err
-	}
-	return worker.facade.GetUserClient(grpc_client, userId)
+	return worker.facade.GetUser(userId)
+	//return infrastructure.GetUserRest(userId)
 }

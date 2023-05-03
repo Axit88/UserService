@@ -1,0 +1,13 @@
+configs:
+  prod:
+    user_service_url:
+      gurl: "${USER_SERVICE_URL}"
+      rurl: "${USER_SERVICE_REST}"
+  dev:
+    user_service_url:
+      gurl: "${USER_SERVICE_URL}" 
+      rurl: "${USER_SERVICE_REST}"
+  test:
+    user_service_url:
+      gurl: "${USER_SERVICE_URL}"
+      rurl: "${USER_SERVICE_REST}"
