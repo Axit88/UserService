@@ -5,7 +5,6 @@ import (
 	"fmt"
 	"net"
 
-	"github.com/Axit88/UserGrpc/infrastructure"
 	pb "github.com/Axit88/UserGrpc/storage-proto"
 	"github.com/Axit88/UserService/src/config"
 	"github.com/Axit88/UserService/src/utils"
@@ -18,7 +17,7 @@ type testApiServer struct {
 }
 
 func (s *testApiServer) AddUser(ctx context.Context, input *pb.AddUserInput) (*pb.AddUserOutput, error) {
-	db, err := infrastructure.CreateDbClient()
+	db, err := utils.CreateDbClient()
 	if err != nil {
 		return nil, err
 	}
@@ -36,7 +35,7 @@ func (s *testApiServer) AddUser(ctx context.Context, input *pb.AddUserInput) (*p
 }
 
 func (s *testApiServer) GetUser(ctx context.Context, input *pb.GetUserInput) (*pb.GetUserOutput, error) {
-	db, err := infrastructure.CreateDbClient()
+	db, err := utils.CreateDbClient()
 	if err != nil {
 		return nil, err
 	}
@@ -57,7 +56,7 @@ func (s *testApiServer) GetUser(ctx context.Context, input *pb.GetUserInput) (*p
 }
 
 func (s *testApiServer) DeleteUser(ctx context.Context, input *pb.DeleteUserInput) (*pb.DeleteUserOutput, error) {
-	db, err := infrastructure.CreateDbClient()
+	db, err := utils.CreateDbClient()
 	if err != nil {
 		return nil, err
 	}
@@ -73,7 +72,7 @@ func (s *testApiServer) DeleteUser(ctx context.Context, input *pb.DeleteUserInpu
 }
 
 func (s *testApiServer) UpdateUser(ctx context.Context, input *pb.UpdateUserInput) (*pb.UpdateUserOutput, error) {
-	db, err := infrastructure.CreateDbClient()
+	db, err := utils.CreateDbClient()
 	if err != nil {
 		return nil, err
 	}

@@ -3,11 +3,27 @@ configs:
     user_service_url:
       gurl: "${USER_SERVICE_URL}"
       rurl: "${USER_SERVICE_REST}"
+    db_config:
+      password: "${DATABASE_PASSWORD}"
+      username: "${DATABASE_USERNAME}"
+      host: "${DATABASE_HOST_URL}"
+      port: ${DATABASE_PORT}
   dev:
     user_service_url:
       gurl: "${USER_SERVICE_URL}" 
       rurl: "${USER_SERVICE_REST}"
+    db_config:
+      password: "${DATABASE_PASSWORD}"
+      username: "${DATABASE_USERNAME}"
+      host: "${DATABASE_HOST_URL}"
+      port: ${DATABASE_PORT}
+
   test:
     user_service_url:
       gurl: "${USER_SERVICE_URL}"
       rurl: "${USER_SERVICE_REST}"
+    db_config:
+      password: "${DATABASE_PASSWORD}"
+      username: "${DATABASE_USERNAME}"
+      host: "${DATABASE_HOST_URL}"
+      port: ${DATABASE_PORT}

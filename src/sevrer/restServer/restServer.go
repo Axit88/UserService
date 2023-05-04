@@ -1,7 +1,6 @@
 package main
 
 import (
-	"database/sql"
 	"net/http"
 
 	"github.com/Axit88/UserService/src/config"
@@ -11,14 +10,8 @@ import (
 	_ "github.com/go-sql-driver/mysql"
 )
 
-
-func SetUpDb() (*sql.DB, error) {
-	db, err := sql.Open("mysql", "root:root@tcp(localhost:3306)/UserService")
-	return db, err
-}
-
 func GetUser(context *gin.Context) {
-	db, err := SetUpDb()
+	db, err := utils.CreateDbClient()
 	if err != nil {
 		context.JSON(http.StatusInternalServerError, "DatabaseConnection Failed")
 		return
@@ -35,7 +28,7 @@ func GetUser(context *gin.Context) {
 }
 
 func AddUser(context *gin.Context) {
-	db, err := SetUpDb()
+	db, err := utils.CreateDbClient()
 	if err != nil {
 		context.JSON(http.StatusInternalServerError, "DatabaseConnection Failed")
 		return
@@ -59,7 +52,7 @@ func AddUser(context *gin.Context) {
 }
 
 func DeleteUser(context *gin.Context) {
-	db, err := SetUpDb()
+	db, err := utils.CreateDbClient()
 	if err != nil {
 		context.JSON(http.StatusInternalServerError, "DatabaseConnection Failed")
 		return
@@ -87,7 +80,7 @@ func DeleteUser(context *gin.Context) {
 }
 
 func UpdateUser(context *gin.Context) {
-	db, err := SetUpDb()
+	db, err := utils.CreateDbClient()
 	if err != nil {
 		context.JSON(http.StatusInternalServerError, "DatabaseConnection Failed")
 		return
@@ -121,7 +114,7 @@ func UpdateUser(context *gin.Context) {
 	context.JSON(http.StatusOK, "Updated Successfully")
 }
 
-func RunRestServer(){
+func RunRestServer() {
 	router := gin.Default()
 	router.GET("/User/:id", GetUser)
 	router.POST("/User", AddUser)

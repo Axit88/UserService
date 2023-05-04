@@ -17,11 +17,19 @@ type EnvConfigs struct {
 
 type Config struct {
 	UserServiceUrl *UserServiceUrl `yaml:"user_service_url"`
+	DbConfig         *DbConfig         `yaml:"db_config"`
 }
 
 type UserServiceUrl struct {
 	GrpcUrl string `yaml:"gurl"`
 	RestUrl string `yaml:"rurl"`
+}
+
+type DbConfig struct {
+	Host     string `yaml:"host"`
+	Port     string `yaml:"port"`
+	UserName string `yaml:"username"`
+	Password string `yaml:"password"`
 }
 
 func getParsedYamlConfig() (*EnvConfigs, error) {
