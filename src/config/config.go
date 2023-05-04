@@ -33,6 +33,7 @@ func getParsedYamlConfig() (*EnvConfigs, error) {
 	if err != nil {
 		return nil, err
 	}
+
 	yamlDataString := os.ExpandEnv(string(yamlData))
 	err = yaml.Unmarshal([]byte(yamlDataString), envConfigs)
 	if err != nil {
@@ -58,20 +59,17 @@ func GetCurrentEnv() (string, error) {
 }
 
 func NewConfig() (*Config, error) {
-
 	env, err := GetCurrentEnv()
-
 	if err != nil {
 		return nil, err
 	}
 
 	envConfigs, err := getParsedYamlConfig()
-
 	if err != nil {
 		return nil, err
 	}
-	conf := envConfigs.Configs[env]
 
+	conf := envConfigs.Configs[env]
 	if conf == nil {
 		return nil, errors.New("error in config file")
 	}

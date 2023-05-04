@@ -7,10 +7,10 @@ import (
 )
 
 func StartWorker(userServiceApplication *application.UserServiceApplication) {
-	err := userServiceApplication.AddUserApplication("12", "ajay")
-	if err != nil {
-		fmt.Println(err)
-	}
+	// err := userServiceApplication.AddUserApplication("12", "ajay")
+	// if err != nil {
+	// 	fmt.Println(err)
+	// }
 
 	res, err := userServiceApplication.GetUserApplication("12")
 	if err != nil {
